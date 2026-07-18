@@ -106,7 +106,7 @@
       <div class="who" id="who"></div>
     </div>
     <p class="shake">Your first shake is on us.</p>
-    <a class="btn2" href="https://maps.google.com/?q=Supplement+World+Newcastle,+12440+167+Ave+NW,+Edmonton" target="_blank" rel="noopener">Get directions</a>
+    <a class="btn2" id="dirbtn" href="https://maps.google.com/?q=Supplement+World+Newcastle,+12440+167+Ave+NW,+Edmonton" target="_blank" rel="noopener">Get directions</a>
     <div class="foot">
       <span class="pin">&#9679;</span>
       <div><div class="a">Supplement World Newcastle</div><div class="b">12440 167 Ave NW &middot; 12 minutes from The Vault</div></div>
@@ -259,6 +259,8 @@ function renderRows(){
   }
 }
 document.getElementById("search").addEventListener("input", renderRows);
+const isApple = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
+if (isApple) document.getElementById("dirbtn").href = "https://maps.apple.com/?q=Supplement+World+Newcastle&address=12440+167+Ave+NW,+Edmonton,+AB";
 window.addEventListener("hashchange", route);
 route();
 </script>
