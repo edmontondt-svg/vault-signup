@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vault member privileges — Supplement World Newcastle</title>
+<meta name="description" content="Vault members get 15% off everything at Supplement World Newcastle. Forever.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0e0e0e;--card:#161616;--ivory:#f5f2ec;--red:#c8352e;--mute:#b5aea4;--dim:#9a938a;--faint:#7a746b;--line:#262626;--field:#232323;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ivory);font-family:Inter,system-ui,sans-serif;min-height:100vh;display:flex;justify-content:center}
+  .wrap{width:100%;max-width:440px;padding:32px 24px 48px}
+  .serif{font-family:'Playfair Display',Georgia,serif}
+  .logos{display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:26px}
+  .logos img.v{width:76px;height:76px;border-radius:50%}
+  .logos .x{color:#4a4a4a;font-size:15px}
+  .swwrap{text-align:center}
+  .swwrap img{width:118px;display:block}
+  .swwrap .nc{font-size:8px;letter-spacing:4px;color:#d8d5cf;margin-top:4px}
+  h1{font-size:34px;font-weight:500;line-height:1.15;text-align:center}
+  h1 .red{color:var(--red);font-style:italic}
+  .sub{color:var(--mute);font-size:14px;line-height:1.6;text-align:center;margin:14px auto 0;max-width:300px}
+  .rule{width:44px;height:1px;background:#3a3a3a;margin:26px auto}
+  .perks{margin:0 0 26px}
+  .perk{display:flex;gap:10px;margin-bottom:11px;font-size:14.5px;color:#d8d2c8;line-height:1.5}
+  .perk svg{flex:none;margin-top:3px}
+  form input{width:100%;background:var(--field);border:1px solid transparent;border-radius:9px;padding:13px 14px;color:var(--ivory);font-size:15px;font-family:inherit;margin-bottom:9px;outline:none}
+  form input:focus{border-color:#4a4a4a}
+  .btn{width:100%;background:var(--red);color:var(--ivory);border:none;border-radius:9px;padding:15px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer}
+  .btn:disabled{opacity:.6}
+  .fine{color:#6a655d;font-size:11px;text-align:center;margin-top:9px}
+  .foot{border-top:1px solid var(--line);margin-top:28px;padding-top:15px;display:flex;align-items:center;gap:10px;justify-content:center}
+  .foot .pin{color:var(--red)}
+  .foot div{font-size:12px}
+  .foot .a{color:var(--ivory)}
+  .foot .b{color:var(--dim);font-size:11px}
+  .hidden{display:none}
+  .checkring{width:56px;height:56px;border-radius:50%;border:1.5px solid var(--red);display:flex;align-items:center;justify-content:center;margin:8px auto 18px}
+  .membercard{background:var(--bg);border:1px solid #3a3a3a;border-radius:14px;padding:20px;text-align:center;margin:22px 0 12px}
+  .membercard .tag{font-size:9px;letter-spacing:3px;color:var(--red);margin-bottom:8px}
+  .membercard .big{font-size:21px}
+  .membercard .who{color:var(--dim);font-size:11px;margin-top:7px;letter-spacing:.5px;text-transform:uppercase}
+  .shake{color:var(--mute);font-size:13px;font-style:italic;text-align:center;margin:0 0 20px}
+  .btn2{display:block;width:100%;background:var(--ivory);color:var(--bg);border:none;border-radius:9px;padding:13px;font-size:14px;font-weight:600;text-align:center;text-decoration:none;font-family:inherit;cursor:pointer}
+  .stats{display:flex;gap:8px;margin:16px 0 4px}
+  .stat{flex:1;background:#1f1f1f;border-radius:9px;padding:11px;text-align:center}
+  .stat .n{font-size:21px;font-weight:600}
+  .stat .l{font-size:9px;letter-spacing:1px;color:var(--dim);margin-top:2px}
+  .stat .n.red{color:var(--red)}
+  .row{border-bottom:1px solid var(--line);padding:12px 2px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+  .row .nm{font-size:14.5px}
+  .row .ph{color:var(--dim);font-size:11.5px;margin-top:2px}
+  .badge{font-size:9.5px;letter-spacing:.5px;padding:4px 10px;border-radius:11px;flex:none}
+  .badge.new{background:#2a1d12;color:#e09a4a}
+  .badge.in{background:#142a1a;color:#5fb878}
+  .badge.wait{background:#2a1414;color:#d97070}
+  .rowact{background:#1c1c1c;border-radius:10px;padding:12px;margin:8px 0;display:none}
+  .rowact.open{display:block}
+  .rowact button{margin-right:8px;margin-top:6px;background:var(--field);color:var(--ivory);border:1px solid #3a3a3a;border-radius:8px;padding:9px 12px;font-size:12.5px;font-family:inherit;cursor:pointer}
+  .err{color:#d97070;font-size:12.5px;text-align:center;margin-top:8px;min-height:16px}
+  h2{font-size:22px;font-weight:500;text-align:center}
+  .adminhead{font-size:10px;letter-spacing:2px;color:var(--dim);text-align:center;margin-bottom:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="view-signup">
+    <div class="logos">
+      <img class="v" src="img/vault.jpg" alt="The Vault">
+      <span class="x">×</span>
+      <div class="swwrap"><img src="img/sw.png" alt="Supplement World"><div class="nc">NEWCASTLE</div></div>
+    </div>
+    <h1 class="serif">15% off everything.<br><span class="red">Forever.</span></h1>
+    <p class="sub">A privilege of your Vault membership, 12 minutes from the gym.</p>
+    <div class="rule"></div>
+    <div class="perks">
+      <div class="perk"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8.5L6 12.5L14 3.5" stroke="#c8352e" stroke-width="2.2" stroke-linecap="round"/></svg><span>15% off everything in store, every visit</span></div>
+      <div class="perk"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8.5L6 12.5L14 3.5" stroke="#c8352e" stroke-width="2.2" stroke-linecap="round"/></svg><span>Free shake on your first visit</span></div>
+      <div class="perk"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8.5L6 12.5L14 3.5" stroke="#c8352e" stroke-width="2.2" stroke-linecap="round"/></svg><span>Yours for as long as you train at The Vault</span></div>
+    </div>
+    <form id="f">
+      <input id="fname" placeholder="Full name" autocomplete="name" required>
+      <input id="fphone" placeholder="Phone number" type="tel" autocomplete="tel" required>
+      <input id="femail" placeholder="Email (optional)" type="email" autocomplete="email">
+      <button class="btn" id="fbtn" type="submit">Claim my discount</button>
+      <div class="err" id="ferr"></div>
+      <p class="fine">No spam. Your account is created in store.</p>
+    </form>
+    <div class="foot">
+      <span class="pin">&#9679;</span>
+      <div><div class="a">Supplement World Newcastle</div><div class="b">12440 167 Ave NW &middot; 12 minutes from The Vault</div></div>
+    </div>
+  </div>
+
+  <div id="view-done" class="hidden">
+    <div class="checkring"><svg width="26" height="26" viewBox="0 0 16 16" fill="none"><path d="M2 8.5L6 12.5L14 3.5" stroke="#c8352e" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <h2 class="serif" id="welcome">Welcome.</h2>
+    <p class="sub">Show this screen and your Vault key tag at Supplement World Newcastle. After your first visit, the discount is simply yours.</p>
+    <div class="membercard">
+      <div class="tag">VAULT MEMBER</div>
+      <div class="big serif">15% off. Forever.</div>
+      <div class="who" id="who"></div>
+    </div>
+    <p class="shake">Your first shake is on us.</p>
+    <a class="btn2" href="https://maps.google.com/?q=Supplement+World+Newcastle,+12440+167+Ave+NW,+Edmonton" target="_blank" rel="noopener">Get directions</a>
+    <div class="foot">
+      <span class="pin">&#9679;</span>
+      <div><div class="a">Supplement World Newcastle</div><div class="b">12440 167 Ave NW &middot; 12 minutes from The Vault</div></div>
+    </div>
+  </div>
+
+  <div id="view-admin" class="hidden">
+    <div class="adminhead">SUPPLEMENT WORLD NEWCASTLE</div>
+    <h2 class="serif">Vault signups</h2>
+    <div id="gate">
+      <form id="gf" style="margin-top:18px">
+        <input id="gpass" placeholder="Passcode" type="password">
+        <button class="btn" type="submit">Open list</button>
+        <div class="err" id="gerr"></div>
+      </form>
+    </div>
+    <div id="list" class="hidden">
+      <div class="stats">
+        <div class="stat"><div class="n" id="s-total">0</div><div class="l">SIGNUPS</div></div>
+        <div class="stat"><div class="n" id="s-in">0</div><div class="l">CAME IN</div></div>
+        <div class="stat"><div class="n red" id="s-wait">0</div><div class="l">WAITING</div></div>
+      </div>
+      <input id="search" placeholder="Search a name or phone" style="width:100%;background:var(--field);border:none;border-radius:9px;padding:11px 13px;color:var(--ivory);font-size:13px;font-family:inherit;margin:8px 0 4px;outline:none">
+      <div id="rows"></div>
+    </div>
+  </div>
+
+</div>
+<script>
+const SB = "https://eajxkvtlcimyroblyvhh.supabase.co";
+const KEY = "sb_publishable_dBEq3CFbH_JvIcIvqTelMA_03RrQwUK";
+const H = {"apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json"};
+
+function show(id){
+  for (const v of ["view-signup","view-done","view-admin"]) document.getElementById(v).classList.toggle("hidden", v !== id);
+}
+function firstName(n){ return (n || "").trim().split(/\s+/)[0] || ""; }
+function fmtDate(d){ return new Date(d).toLocaleDateString("en-CA", {month:"short", day:"numeric", year:"numeric"}); }
+
+function route(){
+  if (location.hash === "#admin") { show("view-admin"); initAdmin(); return; }
+  const saved = localStorage.getItem("vault_claim");
+  if (saved) { renderDone(JSON.parse(saved)); return; }
+  show("view-signup");
+}
+
+function renderDone(c){
+  document.getElementById("welcome").textContent = "Welcome, " + firstName(c.name) + ".";
+  document.getElementById("who").textContent = c.name + " · claimed " + fmtDate(c.at);
+  show("view-done");
+}
+
+document.getElementById("f").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const name = document.getElementById("fname").value.trim();
+  const phone = document.getElementById("fphone").value.trim();
+  const email = document.getElementById("femail").value.trim();
+  const err = document.getElementById("ferr");
+  err.textContent = "";
+  if (!name || !phone) { err.textContent = "Name and phone number are required."; return; }
+  const btn = document.getElementById("fbtn");
+  btn.disabled = true; btn.textContent = "One second…";
+  try {
+    const r = await fetch(SB + "/rest/v1/vault_signups", {
+      method: "POST",
+      headers: {...H, "Prefer": "return=minimal"},
+      body: JSON.stringify({full_name: name, phone: phone, email: email || null, source: "vault"})
+    });
+    if (!r.ok) throw new Error("insert failed " + r.status);
+    const claim = {name: name, at: new Date().toISOString()};
+    localStorage.setItem("vault_claim", JSON.stringify(claim));
+    renderDone(claim);
+  } catch (ex) {
+    err.textContent = "Something went wrong. Please try again, or just come see us in store.";
+  }
+  btn.disabled = false; btn.textContent = "Claim my discount";
+});
+
+let PASS = localStorage.getItem("vault_admin_pass") || "";
+let ROWS = [];
+
+function initAdmin(){
+  if (PASS) { document.getElementById("gate").classList.add("hidden"); loadList(); }
+}
+
+document.getElementById("gf").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  PASS = document.getElementById("gpass").value.trim();
+  const ok = await loadList();
+  if (ok) {
+    localStorage.setItem("vault_admin_pass", PASS);
+    document.getElementById("gate").classList.add("hidden");
+  } else {
+    document.getElementById("gerr").textContent = "Wrong passcode.";
+    PASS = "";
+  }
+});
+
+async function loadList(){
+  try {
+    const r = await fetch(SB + "/rest/v1/rpc/vault_list_signups", {method:"POST", headers:H, body: JSON.stringify({pass: PASS})});
+    if (!r.ok) return false;
+    ROWS = await r.json();
+    document.getElementById("list").classList.remove("hidden");
+    renderRows();
+    return true;
+  } catch (e) { return false; }
+}
+
+function renderRows(){
+  const q = (document.getElementById("search").value || "").toLowerCase();
+  const rows = ROWS.filter(r => !q || r.full_name.toLowerCase().includes(q) || (r.phone||"").includes(q));
+  document.getElementById("s-total").textContent = ROWS.length;
+  document.getElementById("s-in").textContent = ROWS.filter(r => r.came_in).length;
+  document.getElementById("s-wait").textContent = ROWS.filter(r => !r.came_in).length;
+  const el = document.getElementById("rows");
+  el.innerHTML = "";
+  const now = Date.now();
+  for (const r of rows) {
+    const days = Math.floor((now - new Date(r.created_at).getTime()) / 86400000);
+    let badge = '<span class="badge new">NEW</span>';
+    if (r.came_in) badge = '<span class="badge in">CAME IN</span>';
+    else if (days >= 5) badge = '<span class="badge wait">' + days + ' DAYS</span>';
+    const row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML = '<div><div class="nm"></div><div class="ph"></div></div>' + badge;
+    row.querySelector(".nm").textContent = r.full_name;
+    row.querySelector(".ph").textContent = (r.phone || "") + " · signed up " + fmtDate(r.created_at) + (r.email ? " · " + r.email : "");
+    const act = document.createElement("div");
+    act.className = "rowact";
+    const mark = document.createElement("button");
+    mark.textContent = r.came_in ? "Mark as waiting" : "Mark as came in";
+    mark.onclick = async (ev) => {
+      ev.stopPropagation();
+      await fetch(SB + "/rest/v1/rpc/vault_mark_came_in", {method:"POST", headers:H, body: JSON.stringify({sid: r.id, pass: PASS, val: !r.came_in})});
+      loadList();
+    };
+    const copy = document.createElement("button");
+    copy.textContent = "Copy follow-up text";
+    copy.onclick = (ev) => {
+      ev.stopPropagation();
+      const msg = "Hey " + firstName(r.full_name) + ", it's Supplement World Newcastle. Your 15% Vault discount and your first shake are still waiting for you. 12440 167 Ave NW, 12 minutes from the gym.";
+      navigator.clipboard.writeText(msg);
+      copy.textContent = "Copied";
+      setTimeout(() => copy.textContent = "Copy follow-up text", 1500);
+    };
+    act.appendChild(mark); act.appendChild(copy);
+    row.onclick = () => act.classList.toggle("open");
+    el.appendChild(row); el.appendChild(act);
+  }
+}
+document.getElementById("search").addEventListener("input", renderRows);
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
