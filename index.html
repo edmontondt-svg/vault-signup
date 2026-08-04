@@ -50,6 +50,12 @@
   .stat .n{font-size:21px;font-weight:600}
   .stat .l{font-size:9px;letter-spacing:1px;color:var(--dim);margin-top:2px}
   .stat .n.red{color:var(--red)}
+  .biz{margin:12px 0 2px}
+  .bizhead{font-size:10px;letter-spacing:2px;color:var(--dim);margin:14px 0 4px}
+  .bizrow{display:flex;align-items:center;justify-content:space-between;background:#191919;border:1px solid #262626;border-radius:9px;padding:10px 12px;margin:6px 0;cursor:pointer;font-size:13px}
+  .bizrow.sel{border-color:var(--red)}
+  .bizrow .bn{font-weight:600}
+  .bizrow .bs{color:var(--mute);font-size:11.5px;text-align:right}
   .row{border-bottom:1px solid var(--line);padding:12px 2px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
   .row .nm{font-size:14.5px}
   .row .ph{color:var(--dim);font-size:11.5px;margin-top:2px}
@@ -129,6 +135,8 @@
         <div class="stat"><div class="n" id="s-in">0</div><div class="l">CAME IN</div></div>
         <div class="stat"><div class="n red" id="s-wait">0</div><div class="l">WAITING</div></div>
       </div>
+      <div class="bizhead">BY BUSINESS &middot; TAP TO FILTER</div>
+      <div class="biz" id="biz"></div>
       <input id="search" placeholder="Search a name or phone" style="width:100%;background:var(--field);border:none;border-radius:9px;padding:11px 13px;color:var(--ivory);font-size:13px;font-family:inherit;margin:8px 0 4px;outline:none">
       <div id="rows"></div>
     </div>
@@ -143,6 +151,10 @@ const PNAME = PARTNERS[SLUG];
 const SB = "https://eajxkvtlcimyroblyvhh.supabase.co";
 const KEY = "sb_publishable_dBEq3CFbH_JvIcIvqTelMA_03RrQwUK";
 const H = {"apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json"};
+
+if (location.hash !== "#admin") {
+  fetch(SB + "/rest/v1/vault_scan_log", {method:"POST", headers:{...H, "Prefer":"return=minimal"}, body: JSON.stringify({source: SLUG})}).catch(() => {});
+}
 
 function show(id){
   for (const v of ["view-signup","view-done","view-admin"]) document.getElementById(v).classList.toggle("hidden", v !== id);
@@ -196,6 +208,8 @@ document.getElementById("f").addEventListener("submit", async (e) => {
 
 let PASS = localStorage.getItem("vault_admin_pass") || "";
 let ROWS = [];
+let STATS = [];
+let FILTER = "";
 
 function initAdmin(){
   if (PASS) { document.getElementById("gate").classList.add("hidden"); loadList(); }
@@ -219,15 +233,38 @@ async function loadList(){
     const r = await fetch(SB + "/rest/v1/rpc/vault_list_signups", {method:"POST", headers:H, body: JSON.stringify({pass: PASS})});
     if (!r.ok) return false;
     ROWS = await r.json();
+    try {
+      const r2 = await fetch(SB + "/rest/v1/rpc/vault_source_stats", {method:"POST", headers:H, body: JSON.stringify({pass: PASS})});
+      STATS = r2.ok ? await r2.json() : [];
+    } catch (e) { STATS = []; }
     document.getElementById("list").classList.remove("hidden");
+    renderBiz();
     renderRows();
     return true;
   } catch (e) { return false; }
 }
 
+function renderBiz(){
+  const el = document.getElementById("biz");
+  el.innerHTML = "";
+  for (const s of STATS) {
+    const row = document.createElement("div");
+    row.className = "bizrow" + (FILTER === s.source ? " sel" : "");
+    const bn = document.createElement("div");
+    bn.className = "bn";
+    bn.textContent = PARTNERS[s.source] || s.source;
+    const bs = document.createElement("div");
+    bs.className = "bs";
+    bs.textContent = s.scans + " scans · " + s.signups + " signups · " + s.came_in + " came in";
+    row.appendChild(bn); row.appendChild(bs);
+    row.onclick = () => { FILTER = (FILTER === s.source) ? "" : s.source; renderBiz(); renderRows(); };
+    el.appendChild(row);
+  }
+}
+
 function renderRows(){
   const q = (document.getElementById("search").value || "").toLowerCase();
-  const rows = ROWS.filter(r => !q || r.full_name.toLowerCase().includes(q) || (r.phone||"").includes(q));
+  const rows = ROWS.filter(r => (!FILTER || r.source === FILTER) && (!q || r.full_name.toLowerCase().includes(q) || (r.phone||"").includes(q)));
   document.getElementById("s-total").textContent = ROWS.length;
   document.getElementById("s-in").textContent = ROWS.filter(r => r.came_in).length;
   document.getElementById("s-wait").textContent = ROWS.filter(r => !r.came_in).length;
