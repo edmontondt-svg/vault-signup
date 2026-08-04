@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Vault | Current Offer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0e0e0e;--card:#161616;--ivory:#f5f2ec;--red:#c8352e;--mute:#b5aea4;--dim:#9a938a;--faint:#7a746b;--line:#262626;--field:#232323;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ivory);font-family:Inter,system-ui,sans-serif;min-height:100vh;display:flex;justify-content:center}
+  .wrap{width:100%;max-width:420px;padding:44px 26px 40px}
+  .serif{font-family:'Playfair Display',Georgia,serif}
+  .logos{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:30px}
+  .logos img.round{width:74px;height:74px;border-radius:50%;object-fit:cover}
+  .logos img.sw{width:110px}
+  .logos .x{color:#cdc8bf;font-size:20px}
+  .tag{font-size:10px;letter-spacing:4px;color:var(--red);text-align:center;margin-bottom:12px;font-weight:600}
+  h1{font-family:'Playfair Display',Georgia,serif;font-size:34px;font-weight:600;text-align:center;line-height:1.2}
+  .sub{color:var(--mute);font-size:14px;line-height:1.6;text-align:center;margin:14px auto 0;max-width:320px}
+  .rule{width:44px;height:1px;background:#3a3a3a;margin:26px auto}
+  .offer{background:var(--card);border:1px solid #2e2e2e;border-radius:14px;padding:26px 22px;text-align:center;margin-bottom:18px}
+  .offer .otag{font-size:9px;letter-spacing:3px;color:var(--red);margin-bottom:12px;font-weight:600}
+  .offer h2{font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:600;line-height:1.3}
+  .offer p{color:var(--mute);font-size:13.5px;line-height:1.6;margin-top:10px}
+  .offer .upd{color:var(--faint);font-size:11px;margin-top:14px}
+  .btn{display:block;width:100%;background:var(--red);color:var(--ivory);border:none;border-radius:9px;padding:15px;font-size:15px;font-weight:600;text-align:center;text-decoration:none;font-family:inherit;cursor:pointer;margin-bottom:10px}
+  .btn2{display:block;width:100%;background:var(--field);color:var(--ivory);border:1px solid #3a3a3a;border-radius:9px;padding:13px;font-size:14px;font-weight:500;text-align:center;text-decoration:none;font-family:inherit;cursor:pointer}
+  .foot{color:var(--faint);font-size:11.5px;text-align:center;margin-top:30px;line-height:1.8}
+  .foot .a{color:var(--ivory)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logos">
+    <img class="round" src="img/vault.jpg" alt="The Vault">
+    <span class="x">&#129309;</span>
+    <img class="sw" src="img/sw.png" alt="Supplement World Newcastle">
+  </div>
+  <div class="tag">NOW OPEN IN NORTHWEST EDMONTON</div>
+  <h1>Train at The Vault</h1>
+  <p class="sub">Edmonton's newest premium gym. 11,000 sq ft of premium equipment, thermal lounge and group classes, 12 minutes from Supplement World Newcastle.</p>
+  <div class="rule"></div>
+
+  <div class="offer" id="offer" style="display:none">
+    <div class="otag">CURRENT OFFER</div>
+    <h2 id="o-head"></h2>
+    <p id="o-details"></p>
+    <div class="upd" id="o-upd"></div>
+  </div>
+
+  <a class="btn" id="joinbtn" href="https://thevaultfitness.ca/memberships/">Join The Vault</a>
+  <a class="btn2" href="https://www.instagram.com/thevault.yeg/">Follow @thevault.yeg</a>
+  <a class="btn2" id="dirbtn" style="margin-top:10px" href="https://maps.google.com/?q=The+Vault,+12975+156+St+NW,+Edmonton,+AB">Get directions</a>
+
+  <div class="foot">
+    <span class="a">THE VAULT</span><br>
+    12975 156 St NW, Edmonton<br>
+    (780) 784-5237
+  </div>
+</div>
+<script>
+const SB = "https://eajxkvtlcimyroblyvhh.supabase.co";
+const KEY = "sb_publishable_dBEq3CFbH_JvIcIvqTelMA_03RrQwUK";
+
+const isApple = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
+if (isApple) document.getElementById("dirbtn").href = "https://maps.apple.com/?q=The+Vault&address=12975+156+St+NW,+Edmonton,+AB";
+
+fetch(SB + "/rest/v1/vault_gym_promo?id=eq.1&select=*", {
+  headers: { apikey: KEY, Authorization: "Bearer " + KEY }
+}).then(r => r.json()).then(rows => {
+  const p = rows && rows[0];
+  if (!p || !p.active || !p.headline) return;
+  document.getElementById("o-head").textContent = p.headline;
+  document.getElementById("o-details").textContent = p.details || "";
+  const dt = new Date(p.updated_at);
+  document.getElementById("o-upd").textContent = "Updated " + dt.toLocaleDateString("en-CA", { month: "short", day: "numeric" });
+  if (p.button_text) document.getElementById("joinbtn").textContent = p.button_text;
+  if (p.button_url) document.getElementById("joinbtn").href = p.button_url;
+  document.getElementById("offer").style.display = "block";
+}).catch(() => {});
+</script>
+</body>
+</html>
