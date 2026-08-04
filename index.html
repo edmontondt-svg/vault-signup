@@ -247,7 +247,11 @@ async function loadList(){
 function renderBiz(){
   const el = document.getElementById("biz");
   el.innerHTML = "";
-  for (const s of STATS) {
+  const bySource = {};
+  for (const s of STATS) bySource[s.source] = s;
+  const all = Object.keys(PARTNERS).map(k => bySource[k] || {source: k, scans: 0, signups: 0, came_in: 0});
+  all.sort((a, b) => (b.signups - a.signups) || (b.scans - a.scans));
+  for (const s of all) {
     const row = document.createElement("div");
     row.className = "bizrow" + (FILTER === s.source ? " sel" : "");
     const bn = document.createElement("div");
