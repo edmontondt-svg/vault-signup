@@ -34,7 +34,7 @@
 
     <section id="form-view" class="panel">
       <h2>Claim your member benefit</h2>
-      <p class="hint">Show proof of your Wolfhouse membership on your first visit</p>
+      <p class="hint">Enter your details now. We’ll finish your in-store profile when you visit</p>
       <form id="claim-form">
         <label for="full-name">Full name</label>
         <input id="full-name" name="name" autocomplete="name" required>
@@ -55,13 +55,22 @@
     <section id="claim-view" class="panel hidden">
       <div class="success-mark">✓</div>
       <h2 id="welcome">You’re in</h2>
-      <p class="hint">Your Wolfhouse benefit is ready at Supplement World Newcastle</p>
+      <p class="hint">Your Wolfhouse benefit is ready</p>
       <div class="claim-card">
-        <div class="small">15% member benefit</div>
+        <div class="small">WOLFHOUSE MEMBER BENEFIT</div>
         <div class="big">15% off every visit</div>
         <div id="claim-name" class="who"></div>
       </div>
-      <p class="hint">Show this screen and proof of your Wolfhouse membership on your first visit. We’ll attach the discount to your account</p>
+      <div class="visit-card">
+        <strong>Present this screen at Supplement World Newcastle</strong>
+        <div class="visit-address">12440 167 Ave NW, Edmonton</div>
+        <ul class="success-list">
+          <li>We’ll create your in-store profile when you visit</li>
+          <li>Your 15% stays on your account for good</li>
+          <li>Your first shake is on us</li>
+        </ul>
+        <div class="proof-line">Show proof of your Wolfhouse membership once</div>
+      </div>
       <a class="primary" data-directions target="_blank" rel="noopener">Get directions</a>
       <a class="secondary" href="https://www.wolfhousemma.com/" target="_blank" rel="noopener">Visit Wolfhouse</a>
       <button id="reset" class="reset" type="button">Claim for someone else</button>
