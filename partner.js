@@ -6,11 +6,12 @@
   const H = {'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json'};
   const storageKey = 'sw-partner-claim:' + cfg.source;
   const scanKey = 'sw-partner-scan:' + cfg.source;
+  const qa = new URLSearchParams(location.search).get('qa') === '1';
   const $ = (id) => document.getElementById(id);
   const first = (n) => (n || '').trim().split(/\s+/)[0] || '';
   const date = (d) => new Date(d).toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'});
 
-  if (!sessionStorage.getItem(scanKey)) {
+  if (!qa && !sessionStorage.getItem(scanKey)) {
     sessionStorage.setItem(scanKey,'1');
     fetch(SB + '/rest/v1/vault_scan_log', {
       method:'POST', headers:{...H,'Prefer':'return=minimal'}, body:JSON.stringify({source:cfg.source})
