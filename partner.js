@@ -13,6 +13,7 @@
   const $ = (id) => document.getElementById(id);
   const first = (n) => (n || '').trim().split(/\s+/)[0] || '';
   const date = (d) => new Date(d).toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'});
+  const submitLabel = $('submit').textContent;
 
   if (!qa && qrVisit && localStorage.getItem(scanKey) !== scanDay) {
     localStorage.setItem(scanKey,scanDay);
@@ -61,7 +62,7 @@
     } catch (_) {
       $('error').textContent = 'We could not save your claim. Check your connection and try again';
     } finally {
-      button.disabled = false; button.textContent = 'Claim my 15%';
+      button.disabled = false; button.textContent = submitLabel;
     }
   });
 

@@ -121,7 +121,7 @@
 
   <div id="view-admin" class="hidden">
     <div class="adminhead">SUPPLEMENT WORLD NEWCASTLE</div>
-    <h2 class="serif">Partner signups</h2>
+    <h2 class="serif">Partner &amp; event signups</h2>
     <div id="gate">
       <form id="gf" style="margin-top:18px">
         <input id="gpass" placeholder="Passcode" type="password">
@@ -135,7 +135,7 @@
         <div class="stat"><div class="n" id="s-in">0</div><div class="l">CAME IN</div></div>
         <div class="stat"><div class="n red" id="s-wait">0</div><div class="l">WAITING</div></div>
       </div>
-      <div class="bizhead">BY BUSINESS &middot; TAP TO FILTER</div>
+      <div class="bizhead">BY PARTNER OR EVENT &middot; TAP TO FILTER</div>
       <div class="biz" id="biz"></div>
       <input id="search" placeholder="Search a name or phone" style="width:100%;background:var(--field);border:none;border-radius:9px;padding:11px 13px;color:var(--ivory);font-size:13px;font-family:inherit;margin:8px 0 4px;outline:none">
       <div id="rows"></div>
@@ -144,7 +144,7 @@
 
 </div>
 <script>
-const PARTNERS = {vault: "The Vault", hydrooasis: "Hydro Oasis Wellness", empower: "Empower Physiotherapy", afitness: "A Fitness Pilates", shemovesu: "She Moves U", wolfhouse: "Wolfhouse", otfnamao: "Orangetheory Namao"};
+const PARTNERS = {vault: "The Vault", hydrooasis: "Hydro Oasis Wellness", empower: "Empower Physiotherapy", afitness: "A Fitness Pilates", shemovesu: "She Moves U", wolfhouse: "Wolfhouse", otfnamao: "Orangetheory Namao", arc10k2026: "ARC 10K Event", shemovesrooftop2026: "She Moves U Rooftop Event"};
 const SRC = (new URLSearchParams(location.search).get("src") || "vault").toLowerCase();
 const SLUG = PARTNERS[SRC] ? SRC : "vault";
 const PNAME = PARTNERS[SLUG];
@@ -161,6 +161,13 @@ function show(id){
 }
 function firstName(n){ return (n || "").trim().split(/\s+/)[0] || ""; }
 function fmtDate(d){ return new Date(d).toLocaleDateString("en-CA", {month:"short", day:"numeric", year:"numeric"}); }
+function followUpText(r){
+  const first = firstName(r.full_name);
+  if (r.source === "arc10k2026") return "Hey " + first + ", it’s Supplement World Newcastle. Your ARC 10K Recovery Pass is ready: 15% off every visit and your first full-size shake is on us. Visit us at 12440 167 Ave NW.";
+  if (r.source === "shemovesrooftop2026") return "Hey " + first + ", it’s Supplement World Newcastle. Your She Moves U Rooftop Event Benefit is ready: 15% off every visit and your first full-size shake is on us. Visit us at 12440 167 Ave NW.";
+  const partner = PARTNERS[r.source] || "partner";
+  return "Hey " + first + ", it’s Supplement World Newcastle. Your " + partner + " benefit is ready: 15% off every visit and your first shake is on us. Visit us at 12440 167 Ave NW.";
+}
 
 if (SLUG !== "vault") {
   document.getElementById("subline").textContent = "A privilege of your " + PNAME + " membership.";
@@ -298,8 +305,7 @@ function renderRows(){
     copy.textContent = "Copy follow-up text";
     copy.onclick = (ev) => {
       ev.stopPropagation();
-      const msg = "Hey " + firstName(r.full_name) + ", it's Supplement World Newcastle. Your 15% Vault discount and your first shake are still waiting for you. 12440 167 Ave NW, 12 minutes from the gym.";
-      navigator.clipboard.writeText(msg);
+      navigator.clipboard.writeText(followUpText(r));
       copy.textContent = "Copied";
       setTimeout(() => copy.textContent = "Copy follow-up text", 1500);
     };

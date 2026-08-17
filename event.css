@@ -1,0 +1,25 @@
+.event-page{overflow-x:hidden}
+.event-page .page{width:100vw;max-width:540px;overflow-x:hidden}
+.event-page .top,.event-page .panel,.event-page .hero{min-width:0}
+.event-page .sw-lockup{flex:0 0 118px;min-width:0}
+.event-page .brand-logo{border-radius:18px;width:92px;height:92px;object-fit:contain;padding:7px}
+.event-page .event-strip{margin-top:24px;display:grid;grid-template-columns:112px 1fr;gap:15px;align-items:center;background:color-mix(in srgb,var(--surface) 92%,var(--accent));border:1px solid color-mix(in srgb,var(--text) 13%,transparent);border-radius:18px;padding:10px;position:relative;z-index:1}
+.event-page .event-strip>div{min-width:0}
+.event-page .event-strip img{width:112px;height:112px;display:block;object-fit:cover;border-radius:12px}
+.event-page .event-strip .event-date{font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent)}
+.event-page .event-strip strong{display:block;font-family:Cormorant,Georgia,serif;font-size:24px;line-height:1;margin:6px 0;color:var(--text);overflow-wrap:anywhere}
+.event-page .event-strip span{font-size:12px;line-height:1.45;color:var(--muted)}
+.event-page .hero{padding-top:30px}
+.event-page .lede{margin-bottom:0}
+.event-page .panel h2{font-size:30px}
+.event-page .linkrow>*{min-width:0;overflow-wrap:anywhere}
+.event-page .event-proof{font-size:11px;line-height:1.45;color:var(--muted);margin-top:11px;text-align:center}
+.event-page.arc .brand-logo{background:#fff;padding:5px}
+.event-page.arc h1,.event-page.arc .panel h2{font-family:SpaceGrotesk,Inter,sans-serif;font-weight:700;letter-spacing:-2.2px}
+.event-page.arc .offer strong,.event-page.arc .offer span{font-family:SpaceGrotesk,Inter,sans-serif}
+.event-page.arc .event-strip img{object-fit:contain;background:#fff;padding:7px}
+.event-page.arc .sw-logo{filter:invert(1)}
+.event-page.shemoves-event .brand-logo{background:#fff9f6}
+.event-page.shemoves-event .event-strip img{object-position:center 25%}
+.event-page.shemoves-event .sw-logo{filter:invert(1)}
+@media(max-width:390px){.event-page .event-strip{grid-template-columns:95px 1fr}.event-page .event-strip img{width:95px;height:105px}.event-page .event-strip strong{font-size:21px}}
