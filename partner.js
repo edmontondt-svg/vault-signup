@@ -6,9 +6,11 @@
   const H = {'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json'};
   const storageKey = 'sw-partner-claim:' + cfg.source;
   const params = new URLSearchParams(location.search);
-  const scanKey = 'sw-partner-qr-scan:' + cfg.source;
   const qa = params.get('qa') === '1';
+  const qaScan = params.get('qa_scan') === '1';
   const qrVisit = params.get('qr') === '1';
+  const scanSource = qaScan ? 'qa_' + cfg.source : cfg.source;
+  const scanKey = 'sw-partner-qr-scan:' + scanSource;
   const scanDay = new Date().toISOString().slice(0,10);
   const $ = (id) => document.getElementById(id);
   const first = (n) => (n || '').trim().split(/\s+/)[0] || '';
@@ -18,7 +20,7 @@
   if (!qa && qrVisit && localStorage.getItem(scanKey) !== scanDay) {
     localStorage.setItem(scanKey,scanDay);
     fetch(SB + '/rest/v1/vault_scan_log', {
-      method:'POST', headers:{...H,'Prefer':'return=minimal'}, body:JSON.stringify({source:cfg.source})
+      method:'POST', headers:{...H,'Prefer':'return=minimal'}, body:JSON.stringify({source:scanSource})
     }).catch(() => {
       if (localStorage.getItem(scanKey) === scanDay) localStorage.removeItem(scanKey);
     });

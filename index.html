@@ -136,6 +136,7 @@
         <div class="stat"><div class="n red" id="s-wait">0</div><div class="l">WAITING</div></div>
       </div>
       <div class="bizhead">BY PARTNER OR EVENT &middot; TAP TO FILTER</div>
+      <div style="font-size:10px;color:var(--muted);margin:3px 0 10px;line-height:1.45">Scans are unique daily QR opens per device or browser. Signups are completed customer forms.</div>
       <div class="biz" id="biz"></div>
       <input id="search" placeholder="Search a name or phone" style="width:100%;background:var(--field);border:none;border-radius:9px;padding:11px 13px;color:var(--ivory);font-size:13px;font-family:inherit;margin:8px 0 4px;outline:none">
       <div id="rows"></div>
@@ -144,7 +145,7 @@
 
 </div>
 <script>
-const PARTNERS = {vault: "The Vault", hydrooasis: "Hydro Oasis Wellness", empower: "Empower Physiotherapy", afitness: "A Fitness Pilates", shemovesu: "She Moves U", wolfhouse: "Wolfhouse", otfnamao: "Orangetheory Namao", arc10k2026: "ARC 10K Event", shemovesrooftop2026: "She Moves U Rooftop Event"};
+const PARTNERS = {vault: "The Vault", hydrooasis: "Hydro Oasis Wellness", empower: "Empower Physiotherapy", afitness: "A Fitness Pilates", shemovesu: "She Moves U", wolfhouse: "Wolfhouse", otfnamao: "Orangetheory Namao", arc10k2026: "ARC 10K Event", shemovesrooftop2026: "She Moves U Rooftop Event", google_review: "Google Review Poster", shake_story: "Shake & Story Poster"};
 const SRC = (new URLSearchParams(location.search).get("src") || "vault").toLowerCase();
 const SLUG = PARTNERS[SRC] ? SRC : "vault";
 const PNAME = PARTNERS[SLUG];
