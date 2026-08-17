@@ -3,12 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta http-equiv="refresh" content="0;url=../partners/a-fitness-pilates/?qr=1">
   <title>Opening A Fitness Member Benefit</title>
 </head>
 <body>
   <p>Opening the A Fitness member benefit…</p>
-  <p><a href="../partners/a-fitness-pilates/?qr=1">Open the A Fitness member benefit</a></p>
-  <script>location.replace('../partners/a-fitness-pilates/?qr=1')</script>
+  <p><a id="open" href="../partners/a-fitness-pilates/?qr=1">Open the A Fitness member benefit</a></p>
+  <script>
+    const params = new URLSearchParams(location.search)
+    const query = params.get('qa_scan') === '1' ? '?qr=1&qa_scan=1' : params.get('qa') === '1' ? '?qa=1' : '?qr=1'
+    const destination = '../partners/a-fitness-pilates/' + query
+    document.getElementById('open').href = destination
+    location.replace(destination)
+  </script>
 </body>
 </html>
