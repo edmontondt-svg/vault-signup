@@ -10,7 +10,9 @@
   <p><a id="open" href="../partners/gymvmt-kensington/?qr=1">Open the GYMVMT Kensington member benefit</a></p>
   <script>
     const params = new URLSearchParams(location.search)
-    const query = params.get('qa_scan') === '1' ? '?qr=1&qa_scan=1' : params.get('qa') === '1' ? '?qa=1' : '?qr=1'
+    const qaNonce = (params.get('qa_nonce') || '').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,40)
+    const nonce = qaNonce ? '&qa_nonce=' + encodeURIComponent(qaNonce) : ''
+    const query = params.get('qa_scan') === '1' ? '?qr=1&qa_scan=1' + nonce : params.get('qa') === '1' ? '?qa=1' : '?qr=1'
     const destination = '../partners/gymvmt-kensington/' + query
     document.getElementById('open').href = destination
     location.replace(destination)
