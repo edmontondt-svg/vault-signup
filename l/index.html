@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Opening LA Fitness North Member Benefit</title>
+</head>
+<body>
+  <p>Opening the LA Fitness North member benefit…</p>
+  <p><a id="open" href="../partners/la-fitness-north/?qr=1">Open the LA Fitness North member benefit</a></p>
+  <script>
+    const params = new URLSearchParams(location.search)
+    const query = params.get('qa_scan') === '1' ? '?qr=1&qa_scan=1' : params.get('qa') === '1' ? '?qa=1' : '?qr=1'
+    const destination = '../partners/la-fitness-north/' + query
+    document.getElementById('open').href = destination
+    location.replace(destination)
+  </script>
+</body>
+</html>
