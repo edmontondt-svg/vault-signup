@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Opening current sales</title></head>
+<body>
+  <p>Opening current sales…</p>
+  <p><a id="open" href="../sale/?src=gymvmtkensington&qr=1">View current sales</a></p>
+  <script>
+    const params = new URLSearchParams(location.search)
+    const suffix = params.get("qa_scan") === "1" ? "&qa_scan=1" : params.get("qa") === "1" ? "&qa=1" : ""
+    const destination = "../sale/?src=gymvmtkensington&qr=1" + suffix
+    document.getElementById("open").href = destination
+    location.replace(destination)
+  </script>
+</body>
+</html>

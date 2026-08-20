@@ -146,6 +146,7 @@
 </div>
 <script>
 const PARTNERS = {vault: "The Vault", hydrooasis: "Hydro Oasis Wellness", empower: "Empower Physiotherapy", afitness: "A Fitness Pilates", shemovesu: "She Moves U", wolfhouse: "Wolfhouse", otfnamao: "Orangetheory Namao", lafitnessnorth: "LA Fitness North", gymvmtkensington: "GYMVMT Kensington", planetfitnesswhiteoaks: "Planet Fitness White Oaks", arc10k2026: "ARC 10K Event", shemovesrooftop2026: "She Moves U Rooftop Event", google_review: "Google Review Poster", shake_story: "Shake & Story Poster"};
+const SALE_PARTNERS = new Set(["lafitnessnorth", "gymvmtkensington", "planetfitnesswhiteoaks"]);
 const SRC = (new URLSearchParams(location.search).get("src") || "vault").toLowerCase();
 const SLUG = PARTNERS[SRC] ? SRC : "vault";
 const PNAME = PARTNERS[SLUG];
@@ -257,8 +258,12 @@ function renderBiz(){
   el.innerHTML = "";
   const bySource = {};
   for (const s of STATS) bySource[s.source] = s;
-  const all = Object.keys(PARTNERS).map(k => bySource[k] || {source: k, scans: 0, signups: 0, came_in: 0});
-  all.sort((a, b) => (b.signups - a.signups) || (b.scans - a.scans));
+  const all = Object.keys(PARTNERS).map(k => {
+    const main = bySource[k] || {source: k, scans: 0, signups: 0, came_in: 0};
+    const sale = bySource["sale_" + k] || {scans: 0};
+    return {...main, sales_scans: sale.scans || 0};
+  });
+  all.sort((a, b) => (b.signups - a.signups) || ((b.scans + b.sales_scans) - (a.scans + a.sales_scans)));
   for (const s of all) {
     const row = document.createElement("div");
     row.className = "bizrow" + (FILTER === s.source ? " sel" : "");
@@ -267,7 +272,9 @@ function renderBiz(){
     bn.textContent = PARTNERS[s.source] || s.source;
     const bs = document.createElement("div");
     bs.className = "bs";
-    bs.textContent = s.scans + " scans · " + s.signups + " signups · " + s.came_in + " came in";
+    bs.textContent = SALE_PARTNERS.has(s.source)
+      ? s.scans + " benefit scans · " + s.sales_scans + " sales scans · " + s.signups + " signups · " + s.came_in + " came in"
+      : s.scans + " scans · " + s.signups + " signups · " + s.came_in + " came in";
     row.appendChild(bn); row.appendChild(bs);
     row.onclick = () => { FILTER = (FILTER === s.source) ? "" : s.source; renderBiz(); renderRows(); };
     el.appendChild(row);
