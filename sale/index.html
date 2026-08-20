@@ -35,8 +35,9 @@
       const qrVisit = params.get("qr") === "1";
       const qa = params.get("qa") === "1";
       const qaScan = params.get("qa_scan") === "1";
+      const qaNonce = (params.get("qa_nonce") || "").replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40);
       const scanSource = (qaScan ? "qa_sale_" : "sale_") + source;
-      const scanKey = "sw-sales-qr-scan:" + scanSource;
+      const scanKey = "sw-sales-qr-scan:" + scanSource + (qaScan && qaNonce ? ":" + qaNonce : "");
       const scanDay = new Date().toISOString().slice(0, 10);
       const SB = "https://eajxkvtlcimyroblyvhh.supabase.co";
       const KEY = "sb_publishable_dBEq3CFbH_JvIcIvqTelMA_03RrQwUK";

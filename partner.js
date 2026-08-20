@@ -8,9 +8,10 @@
   const params = new URLSearchParams(location.search);
   const qa = params.get('qa') === '1';
   const qaScan = params.get('qa_scan') === '1';
+  const qaNonce = (params.get('qa_nonce') || '').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,40);
   const qrVisit = params.get('qr') === '1';
   const scanSource = qaScan ? 'qa_' + cfg.source : cfg.source;
-  const scanKey = 'sw-partner-qr-scan:' + scanSource;
+  const scanKey = 'sw-partner-qr-scan:' + scanSource + (qaScan && qaNonce ? ':' + qaNonce : '');
   const scanDay = new Date().toISOString().slice(0,10);
   const $ = (id) => document.getElementById(id);
   const first = (n) => (n || '').trim().split(/\s+/)[0] || '';
